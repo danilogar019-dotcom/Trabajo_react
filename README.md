@@ -69,18 +69,6 @@ Valuable resources that guided the development of this project:
 *   [Creativos Online: Footer Design](https://www.creativosonline.org/25-ejemplos-fantasticos-de-footers-en-diseno-web.html) - Inspiration for the interactive footer layout.
 *   [Clean Code Best Practices](https://www.hostgator.mx/blog/clean-code-codigo-limpio/) - Guidelines for maintainable and scalable JavaScript.
 
----
-
-## 💻 Technical Standards
-
-### Naming Conventions
-To ensure consistency across the development team, the following rules are strictly enforced:
-*   **Folders**: `kebab-case` (e.g., `src/components/forum`)
-*   **Component Files**: `PascalCase` (e.g., `Header.jsx`)
-*   **Styles**: `PascalCase` (e.g., `Footer.css`)
-*   **CSS Selectors**: `kebab-case` (e.g., `.nav-link-active`)
-*   **JavaScript Variables**: `camelCase`
-*   **Booleans**: Prefixed with `is`, `has`, or `should` (e.g., `isLoading`, `hasError`)
 
 ---
 
