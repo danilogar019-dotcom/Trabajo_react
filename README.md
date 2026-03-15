@@ -69,6 +69,29 @@ Valuable resources that guided the development of this project:
 *   [Creativos Online: Footer Design](https://www.creativosonline.org/25-ejemplos-fantasticos-de-footers-en-diseno-web.html) - Inspiration for the interactive footer layout.
 *   [Clean Code Best Practices](https://www.hostgator.mx/blog/clean-code-codigo-limpio/) - Guidelines for maintainable and scalable JavaScript.
 
+## Firebase hosting
+Wanderlust Travels is deployed using Firebase Hosting, ensuring fast global delivery, SSL security, and seamless SPA routing.
+
+Live Deployment:  
+https://basewanderland.web.app
+
+Deployment Workflow:
+
+Built with Vite using npm run build
+
+Hosted from the optimized dist/ directory
+
+Configured as a Single Page Application (SPA)
+
+Firebase handles URL rewrites to support React Router navigation
+
+Firebase Tools Used:
+
+Firebase CLI for deployment
+
+Hosting configuration via firebase.json
+
+Automatic SPA routing with rewrites
 
 ---
 
