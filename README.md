@@ -69,7 +69,8 @@ Valuable resources that guided the development of this project:
 *   [Creativos Online: Footer Design](https://www.creativosonline.org/25-ejemplos-fantasticos-de-footers-en-diseno-web.html) - Inspiration for the interactive footer layout.
 *   [Clean Code Best Practices](https://www.hostgator.mx/blog/clean-code-codigo-limpio/) - Guidelines for maintainable and scalable JavaScript.
 
-
+Firebase
+Hosting URL: https://basewanderland.web.app
 
 ---
 
