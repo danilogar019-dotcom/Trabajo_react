@@ -1,0 +1,118 @@
+.opinions-section {
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.opinions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, min-minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.opinion-card {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.opinion-card::before {
+    content: '"';
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 80px;
+    font-family: serif;
+    opacity: 0.1;
+    color: var(--color-primary);
+}
+
+.opinion-stars {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 4px;
+}
+
+.star {
+    color: #ffd700;
+    font-size: 1.2rem;
+}
+
+.opinion-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.opinion-comment {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--color-text-light);
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+.opinion-footer {
+    border-top: 1px solid var(--glass-border);
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.opinion-avatar {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+.opinion-author-name {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 0;
+    gap: 20px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--glass-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .opinions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .opinions-section {
+        padding: 60px 0;
+    }
+}

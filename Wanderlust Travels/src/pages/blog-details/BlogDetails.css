@@ -1,0 +1,72 @@
+.blog-details-page {
+    padding-bottom: 6rem;
+}
+
+.blog-details-header {
+    height: 70vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-bottom: -4rem;
+}
+
+.header-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--color-background), rgba(0,0,0,0.4));
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.blog-category-badge {
+    background: var(--color-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.blog-details-header h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.blog-meta-detailed {
+    opacity: 0.8;
+    font-size: 1.1rem;
+}
+
+.blog-content-wrapper {
+    max-width: 900px;
+    position: relative;
+    z-index: 2;
+}
+
+.blog-main-content {
+    padding: 4rem;
+    line-height: 1.8;
+}
+
+.lead-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 2.5rem;
+}
+
+.post-body {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .blog-main-content {
+        padding: 2rem;
+    }
+}

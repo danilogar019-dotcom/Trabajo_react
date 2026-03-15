@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "user": "Elena M.",
+        "category": "Beach",
+        "title": "Hidden Gem in Menorca",
+        "content": "Just returned from Cala Mitjana. The water is crystal clear!",
+        "date": "2023-10-15",
+        "image": "https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        "id": 2,
+        "user": "Marc P.",
+        "category": "Mountain",
+        "title": "Pyrenees Trekking",
+        "content": "The route through Ordesa is tough but totally worth it for the views.",
+        "date": "2023-10-12",
+        "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        "id": 3,
+        "user": "Sara L.",
+        "category": "City",
+        "title": "Best Coffee in Berlin",
+        "content": "Found this amazing little spot in Kreuzberg. Best flat white ever.",
+        "date": "2023-10-10",
+        "image": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        "id": 4,
+        "user": "David R.",
+        "category": "Adventure",
+        "title": "Surfing in Zarautz",
+        "content": "Waves were perfect this morning. Great community vibes here.",
+        "date": "2023-10-09",
+        "image": "https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        "id": 5,
+        "user": "Anna G.",
+        "category": "Beach",
+        "title": "Sunsets in Ibiza",
+        "content": "Nothing beats the sunset at Cala Comte. Pure magic.",
+        "date": "2023-10-05",
+        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        "id": 6,
+        "user": "Tomás B.",
+        "category": "Mountain",
+        "title": "Sierra Nevada Skies",
+        "content": "Star-gazing from the peak was the highlight of my year.",
+        "date": "2023-10-02",
+        "image": "https://images.unsplash.com/photo-1563811771046-ba984ff30900?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    }
+]

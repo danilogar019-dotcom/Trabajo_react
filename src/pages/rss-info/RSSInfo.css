@@ -1,0 +1,46 @@
+.rss-container {
+    max-width: 800px;
+    margin: 100px auto 60px;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.rss-header h1 {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.rss-content {
+    background-color: var(--color-white);
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-top: 2rem;
+}
+
+.rss-link-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background-color: #f97316; /* RSS Orange */
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 1.25rem;
+    transition: transform 0.2s, background-color 0.2s;
+    margin-top: 1.5rem;
+}
+
+.rss-link-box:hover {
+    transform: translateY(-3px);
+    background-color: #ea580c;
+}
+
+.rss-description {
+    margin-bottom: 2rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
+}
