@@ -108,6 +108,7 @@ const Header = () => {
                     <li><Link to="/contact" className={`header-link ${location.pathname === '/contact' ? 'active' : ''}`} onClick={() => setIsMenuOpen(false)}>Contact</Link></li>
                     <li><Link to="/blog" className={`header-link ${location.pathname === '/blog' ? 'active' : ''}`} onClick={() => setIsMenuOpen(false)}>Blog</Link></li>
                     <li><Link to="/rss" className={`header-link ${location.pathname === '/rss' ? 'active' : ''}`} onClick={() => setIsMenuOpen(false)}>RSS Feed</Link></li>
+                    <li><Link to="/import-export" className={`header-link ${location.pathname === '/import-export' ? 'active' : ''}`} onClick={() => setIsMenuOpen(false)}>exportar/importar</Link></li>
                 </ul>
 
                 <div className="header-actions">

@@ -1,0 +1,26 @@
+[
+  {
+    "nombre": "Ana García",
+    "titulo": "Maravillosa escapada a Roma",
+    "comentario": "Un viaje inolvidable. Los guías fueron excepcionales y cada detalle estuvo perfectamente organizado. ¡Volvería sin dudarlo!",
+    "estrellas": 5,
+    "fecha": "2026-03-15",
+    "likes": 12
+  },
+  {
+    "nombre": "Marco Rodríguez",
+    "titulo": "Aventura en Nueva Zelanda",
+    "comentario": "Los paisajes son de otro mundo. La agencia nos proporcionó un itinerario equilibrado entre aventura y relax. Muy recomendable.",
+    "estrellas": 5,
+    "fecha": "2026-02-20",
+    "likes": 8
+  },
+  {
+    "nombre": "Sofía Martínez",
+    "titulo": "Crucero por el Mediterráneo",
+    "comentario": "Experiencia única recorriendo las costas mediterráneas. El barco era lujoso y el servicio impecable.",
+    "estrellas": 4,
+    "fecha": "2026-01-10",
+    "likes": 5
+  }
+]

@@ -21,6 +21,17 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  padding-top: 80px; /* Offset for the fixed header */
+}
+
 .container {
   max-width: var(--container-width);
   margin: 0 auto;

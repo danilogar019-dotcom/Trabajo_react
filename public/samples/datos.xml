@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opiniones>
+  <opinion>
+    <nombre>Ana García</nombre>
+    <titulo>Maravillosa escapada a Roma</titulo>
+    <comentario>Un viaje inolvidable. Los guías fueron excepcionales y cada detalle estuvo perfectamente organizado. ¡Volvería sin dudarlo!</comentario>
+    <estrellas>5</estrellas>
+    <fecha>2026-03-15</fecha>
+    <likes>12</likes>
+  </opinion>
+  <opinion>
+    <nombre>Marco Rodríguez</nombre>
+    <titulo>Aventura en Nueva Zelanda</titulo>
+    <comentario>Los paisajes son de otro mundo. La agencia nos proporcionó un itinerario equilibrado entre aventura y relax. Muy recomendable.</comentario>
+    <estrellas>5</estrellas>
+    <fecha>2026-02-20</fecha>
+    <likes>8</likes>
+  </opinion>
+  <opinion>
+    <nombre>Sofía Martínez</nombre>
+    <titulo>Crucero por el Mediterráneo</titulo>
+    <comentario>Experiencia única recorriendo las costas mediterráneas. El barco era lujoso y el servicio impecable.</comentario>
+    <estrellas>4</estrellas>
+    <fecha>2026-01-10</fecha>
+    <likes>5</likes>
+  </opinion>
+</opiniones>
