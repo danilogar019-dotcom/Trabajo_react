@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Forum.css';
 import forumData from '../../assets/forum-data.json';
-import { db } from '../../firebase/config';
+import { db } from '../../services/config';
 import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 
 const ForumCard = ({ post, onLike }) => {

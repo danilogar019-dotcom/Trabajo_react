@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './Forum.css';
-import { db } from '../../firebase/config';
+import { db } from '../../services/config';
 import { collection, getDocs, query, orderBy, limit, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 
 const ForumCard = ({ opinion, index, onLike, onDelete, onEdit }) => {

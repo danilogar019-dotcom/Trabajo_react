@@ -8,57 +8,41 @@ import About from './pages/about/About';
 import Contact from './pages/contact/Contact';
 import RSSInfo from './pages/rss-info/RSSInfo';
 import Blog from './pages/blog/Blog';
+import ImportExport from './pages/import-export/ImportExport';
+import { uploadOpinionsInitialData } from './services/dbUtils';
 
 function App() {
   const location = useLocation();
 
   useEffect(() => {
-    // Ensure scroll starts at top
-    window.scrollTo(0, 0);
-
     const checkReveals = () => {
-      const revealElements = document.querySelectorAll('.reveal:not(.active)');
-      revealElements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 30 && rect.bottom > 0) {
-          el.classList.add('active');
+      const reveals = document.querySelectorAll('.reveal');
+      const windowHeight = window.innerHeight;
+      const revealPoint = 150;
+
+      reveals.forEach(reveal => {
+        const revealTop = reveal.getBoundingClientRect().top;
+        if (revealTop < windowHeight - revealPoint) {
+          reveal.classList.add('active');
         }
       });
     };
 
-    const revealOptions = {
-      threshold: 0.05,
-      rootMargin: '0px 0px -20px 0px'
-    };
+    window.addEventListener('scroll', checkReveals);
+    // Initial check
+    checkReveals();
+    
+    // Polling fallback for dynamic content
+    const interval = setInterval(checkReveals, 1000);
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('active');
-          }, index * 50);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, revealOptions);
-
-    // Initial check and start observing
-    const initReveal = () => {
-      const revealElements = document.querySelectorAll('.reveal');
-      revealElements.forEach(el => observer.observe(el));
-      checkReveals(); // Immediate check for above-the-fold
-    };
-
-    // Small delay to ensure all React components have mounted their DOM nodes
-    const timeout = setTimeout(initReveal, 200);
-    const interval = setInterval(checkReveals, 1000); // Polling fallback
+    // Initial data migration check
+    uploadOpinionsInitialData();
 
     return () => {
-      clearTimeout(timeout);
+      window.removeEventListener('scroll', checkReveals);
       clearInterval(interval);
-      observer.disconnect();
     };
-  }, [location.pathname]);
+  }, []);
 
   return (
     <div className="app-container">
@@ -73,6 +57,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/rss" element={<RSSInfo />} />
+          <Route path="/import-export" element={<ImportExport />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

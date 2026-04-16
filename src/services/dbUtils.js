@@ -1,5 +1,5 @@
 import { db } from './config';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, orderBy } from 'firebase/firestore';
 import forumData from '../assets/forum-data.json';
 import { possibleDestinations } from '../data/possible_destinations';
 
@@ -103,4 +103,41 @@ export const uploadOpinionsInitialData = async () => {
     } catch (error) {
         console.error("Error migrating opinions:", error);
     }
+};
+
+/**
+ * Fetches all opinions from Firestore for export
+ */
+export const getOpiniones = async () => {
+    const opinionesRef = collection(db, 'opiniones');
+    const snapshot = await getDocs(opinionesRef);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+/**
+ * Adds a single opinion document to Firestore
+ */
+export const addOpinion = async (opinion) => {
+    const opinionesRef = collection(db, 'opiniones');
+    return await addDoc(opinionesRef, {
+        nombre: opinion.nombre || '',
+        titulo: opinion.titulo || '',
+        comentario: opinion.comentario || '',
+        estrellas: Number(opinion.estrellas) || 5,
+        fecha: opinion.fecha || new Date().toLocaleDateString(),
+        likes: Number(opinion.likes) || 0,
+        createdAt: new Date()
+    });
+};
+
+/**
+ * Bulk-imports a list of opinions into Firestore
+ */
+export const addOpinionesBatch = async (opinionesList) => {
+    const results = [];
+    for (const opinion of opinionesList) {
+        const ref = await addOpinion(opinion);
+        results.push(ref.id);
+    }
+    return results;
 };
