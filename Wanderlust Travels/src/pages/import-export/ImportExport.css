@@ -164,6 +164,56 @@
 }
 .ie-format-btn.xml:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px hsl(30deg 90% 50% / 0.5); }
 
+.ie-format-btn.xlsx {
+    background: linear-gradient(135deg, hsl(145deg 70% 40%), hsl(160deg 70% 40%));
+    color: #fff;
+    box-shadow: 0 4px 15px hsl(145deg 70% 40% / 0.35);
+}
+.ie-format-btn.xlsx:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px hsl(145deg 70% 40% / 0.5); }
+
+.ie-format-btn.ods {
+    background: linear-gradient(135deg, hsl(80deg 80% 40%), hsl(100deg 80% 40%));
+    color: #fff;
+    box-shadow: 0 4px 15px hsl(80deg 80% 40% / 0.35);
+}
+.ie-format-btn.ods:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px hsl(80deg 80% 40% / 0.5); }
+
+.ie-format-btn.yaml {
+    background: linear-gradient(135deg, hsl(280deg 70% 55%), hsl(300deg 70% 55%));
+    color: #fff;
+    box-shadow: 0 4px 15px hsl(280deg 70% 55% / 0.35);
+}
+.ie-format-btn.yaml:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px hsl(280deg 70% 55% / 0.5); }
+
+.ie-format-btn.sql {
+    background: linear-gradient(135deg, hsl(210deg 80% 50%), hsl(230deg 80% 50%));
+    color: #fff;
+    box-shadow: 0 4px 15px hsl(210deg 80% 50% / 0.35);
+}
+.ie-format-btn.sql:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px hsl(210deg 80% 50% / 0.5); }
+
+.ie-format-btn.md {
+    background: linear-gradient(135deg, hsl(0deg 0% 25%), hsl(0deg 0% 15%));
+    color: #fff;
+    box-shadow: 0 4px 15px hsl(0deg 0% 0% / 0.35);
+}
+.ie-format-btn.md:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px hsl(0deg 0% 0% / 0.5); }
+
+.ie-format-btn.jsonl {
+    background: linear-gradient(135deg, hsl(320deg 80% 50%), hsl(340deg 80% 50%));
+    color: #fff;
+    box-shadow: 0 4px 15px hsl(320deg 80% 50% / 0.35);
+}
+.ie-format-btn.jsonl:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px hsl(320deg 80% 50% / 0.5); }
+
+.ie-format-btn.txt {
+    background: linear-gradient(135deg, hsl(200deg 20% 45%), hsl(200deg 20% 35%));
+    color: #fff;
+    box-shadow: 0 4px 15px hsl(200deg 20% 45% / 0.35);
+}
+.ie-format-btn.txt:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px hsl(200deg 20% 45% / 0.5); }
+
+
 /* Import Controls */
 .ie-import-controls {
     display: flex;
@@ -329,6 +379,36 @@
     background: hsl(30deg 90% 50% / 0.12);
     border: 1px solid hsl(30deg 90% 55% / 0.4);
     color: hsl(30deg 90% 70%);
+}
+.sample-link.xlsx {
+    background: hsl(145deg 70% 40% / 0.15);
+    border: 1px solid hsl(145deg 70% 55% / 0.4);
+    color: hsl(145deg 70% 70%);
+}
+.sample-link.ods {
+    background: hsl(80deg 80% 40% / 0.15);
+    border: 1px solid hsl(80deg 80% 55% / 0.4);
+    color: hsl(80deg 80% 70%);
+}
+.sample-link.yaml {
+    background: hsl(280deg 70% 55% / 0.15);
+    border: 1px solid hsl(280deg 70% 65% / 0.4);
+    color: hsl(280deg 70% 75%);
+}
+.sample-link.md {
+    background: hsl(0deg 0% 25% / 0.15);
+    border: 1px solid hsl(0deg 0% 35% / 0.4);
+    color: hsl(0deg 0% 80%);
+}
+.sample-link.jsonl {
+    background: hsl(320deg 80% 50% / 0.15);
+    border: 1px solid hsl(320deg 80% 60% / 0.4);
+    color: hsl(320deg 80% 75%);
+}
+.sample-link.txt {
+    background: hsl(200deg 20% 45% / 0.15);
+    border: 1px solid hsl(200deg 20% 55% / 0.4);
+    color: hsl(200deg 20% 75%);
 }
 
 .sample-link:hover { transform: translateY(-1px); filter: brightness(1.2); }

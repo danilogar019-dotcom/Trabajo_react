@@ -3,9 +3,20 @@ import {
     exportToJSON,
     exportToCSV,
     exportToXML,
+    exportToExcel,
+    exportToODS,
+    exportToYAML,
+    exportToSQL,
+    exportToMarkdown,
+    exportToJSONL,
+    exportToText,
     importFromJSON,
     importFromCSV,
     importFromXML,
+    importFromExcel,
+    importFromYAML,
+    importFromJSONL,
+    importFromText,
 } from '../../services/importExportService';
 import './ImportExport.css';
 
@@ -30,7 +41,14 @@ const ImportExport = () => {
             let count;
             if (format === 'json') count = await exportToJSON();
             else if (format === 'csv') count = await exportToCSV();
-            else count = await exportToXML();
+            else if (format === 'xml') count = await exportToXML();
+            else if (format === 'xlsx') count = await exportToExcel();
+            else if (format === 'ods') count = await exportToODS();
+            else if (format === 'yaml') count = await exportToYAML();
+            else if (format === 'sql') count = await exportToSQL();
+            else if (format === 'md') count = await exportToMarkdown();
+            else if (format === 'jsonl') count = await exportToJSONL();
+            else if (format === 'txt') count = await exportToText();
             const msgSuccess = `✅ ${count} opiniones exportadas como ${format.toUpperCase()}`;
             setExportStatus({ type: 'success', msg: msgSuccess });
             addLog(msgSuccess, 'success');
@@ -54,7 +72,11 @@ const ImportExport = () => {
             let count;
             if (importFormat === 'json') count = await importFromJSON(selectedFile);
             else if (importFormat === 'csv') count = await importFromCSV(selectedFile);
-            else count = await importFromXML(selectedFile);
+            else if (importFormat === 'xml') count = await importFromXML(selectedFile);
+            else if (importFormat === 'xlsx' || importFormat === 'ods') count = await importFromExcel(selectedFile);
+            else if (importFormat === 'yaml') count = await importFromYAML(selectedFile);
+            else if (importFormat === 'jsonl') count = await importFromJSONL(selectedFile);
+            else if (importFormat === 'txt') count = await importFromText(selectedFile);
             const msgSuccess = `✅ ${count} opiniones importadas correctamente a Firebase.`;
             setImportStatus({ type: 'success', msg: msgSuccess });
             addLog(msgSuccess, 'success');
@@ -73,7 +95,16 @@ const ImportExport = () => {
         { key: 'json', label: 'JSON', icon: '{ }' },
         { key: 'csv', label: 'CSV', icon: '⊞' },
         { key: 'xml', label: 'XML', icon: '<>' },
+        { key: 'xlsx', label: 'Excel', icon: '📊' },
+        { key: 'ods', label: 'Calc', icon: '📋' },
+        { key: 'yaml', label: 'YAML', icon: '📜' },
+        { key: 'sql', label: 'SQL', icon: '🗄️' },
+        { key: 'md', label: 'MD', icon: 'M↓' },
+        { key: 'jsonl', label: 'JSONL', icon: 'L' },
+        { key: 'txt', label: 'Texto', icon: 'T' },
     ];
+
+    const importableFormats = formatBtns.filter(f => f.key !== 'sql');
 
     return (
         <section className="ie-section">
@@ -127,6 +158,12 @@ const ImportExport = () => {
                                 <a href="/samples/datos.json" download className="sample-link json">datos.json</a>
                                 <a href="/samples/datos.csv" download className="sample-link csv">datos.csv</a>
                                 <a href="/samples/datos.xml" download className="sample-link xml">datos.xml</a>
+                                <a href="/samples/datos.xlsx" download className="sample-link xlsx">datos.xlsx</a>
+                                <a href="/samples/datos.ods" download className="sample-link ods">datos.ods</a>
+                                <a href="/samples/datos.yaml" download className="sample-link yaml">datos.yaml</a>
+                                <a href="/samples/datos.md" download className="sample-link md">datos.md</a>
+                                <a href="/samples/datos.jsonl" download className="sample-link jsonl">datos.jsonl</a>
+                                <a href="/samples/datos.txt" download className="sample-link txt">datos.txt</a>
                             </div>
                         </div>
                     </div>
@@ -148,7 +185,7 @@ const ImportExport = () => {
                         <div className="ie-import-controls">
                             <label className="ie-label">Formato del archivo</label>
                             <div className="ie-format-selector">
-                                {formatBtns.map(({ key, label }) => (
+                                {importableFormats.map(({ key, label }) => (
                                     <label key={key} className={`ie-radio-label ${importFormat === key ? 'selected' : ''}`}>
                                         <input
                                             type="radio"

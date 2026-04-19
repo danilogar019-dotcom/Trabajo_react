@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase/config';
-import { uploadBlogInitialData } from '../../firebase/dbUtils';
+import { db } from '../../services/config';
+import { uploadBlogInitialData } from '../../services/dbUtils';
 import './Blog.css';
 import useTilt from '../../hooks/use-tilt';
 

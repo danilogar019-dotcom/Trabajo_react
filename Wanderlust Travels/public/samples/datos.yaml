@@ -1,0 +1,12 @@
+- nombre: Juan Pérez
+  titulo: Increíble viaje
+  comentario: Todo estuvo perfecto, la organización impecable.
+  estrellas: 5
+  fecha: '2024-04-15'
+  likes: 12
+- nombre: Maria Garcia
+  titulo: Vistas espectaculares
+  comentario: El destino superó mis expectativas.
+  estrellas: 5
+  fecha: '2024-04-16'
+  likes: 8

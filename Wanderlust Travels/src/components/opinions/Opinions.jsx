@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { db } from "../../firebase/config";
+import { db } from "../../services/config";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import "./Opinions.css";
 
