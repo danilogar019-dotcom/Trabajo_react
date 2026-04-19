@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import ScrollToTop from './components/scroll-to-top/ScrollToTop';
@@ -12,7 +12,6 @@ import ImportExport from './pages/import-export/ImportExport';
 import { uploadOpinionsInitialData } from './services/dbUtils';
 
 function App() {
-  const location = useLocation();
 
   useEffect(() => {
     const checkReveals = () => {

@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import './Destinations.css';
 import useTilt from '../../hooks/use-tilt';
 
-import { possibleDestinations as initialDestinations } from '../../data/possible_destinations';
-
 import { Link } from 'react-router-dom';
 
 const DestinationCard = ({ dest, index, onBook }) => {
@@ -46,8 +44,8 @@ const DestinationCard = ({ dest, index, onBook }) => {
 
 import { useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase/config';
-import { uploadDestinationsInitialData } from '../../firebase/dbUtils';
+import { db } from '../../services/config';
+import { uploadDestinationsInitialData } from '../../services/dbUtils';
 
 const Destinations = () => {
     const [destinations, setDestinations] = useState([]);
@@ -106,6 +104,10 @@ const Destinations = () => {
         setIsModalOpen(true);
         setBookingStep(1);
     };
+
+    const closeModal = () => setIsModalOpen(false);
+    const nextStep = () => setBookingStep(prev => Math.min(prev + 1, 3));
+    const prevStep = () => setBookingStep(prev => Math.max(prev - 1, 1));
 
     if (loading) {
         return (
