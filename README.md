@@ -95,6 +95,20 @@ Automatic SPA routing with rewrites
 
 ---
 
+## 📥 Importación y Exportación de Datos
+
+Tu README.md debe tener enlaces a archivos de importación de ejemplo para tu aplicación que funcionen en los siguientes formatos:
+* [datos.csv](./public/samples/datos.csv)
+* [datos.xml](./public/samples/datos.xml)
+* [datos.json](./public/samples/datos.json)
+
+15% Será posible exportar archivos en los formatos con los datos generados dinámicamente con lo que haya en tu aplicación:
+* datos.csv
+* datos.xml
+* datos.json
+
+---
+
 ## 📬 Contact
 
 **Danil** - [GitHub Profile](https://github.com/Danil) 
