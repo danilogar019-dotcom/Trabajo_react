@@ -1,5 +1,6 @@
 import { getOpiniones, addOpinionesBatch } from './dbUtils';
-
+import * as XLSX from 'xlsx';
+import yaml from 'js-yaml';
 
 const triggerDownload = (content, filename, mimeType) => {
     const blob = new Blob([content], { type: mimeType });
@@ -22,13 +23,20 @@ const cleanOpinion = (op) => ({
     likes: op.likes || 0,
 });
 
+const isValidOpinion = (op) => {
+    if (!op) return false;
+    const hasNombre = op.nombre && typeof op.nombre === 'string' && op.nombre.trim() !== '';
+    const hasTitulo = op.titulo && typeof op.titulo === 'string' && op.titulo.trim() !== '';
+    const hasComentario = op.comentario && typeof op.comentario === 'string' && op.comentario.trim() !== '';
+    return Boolean(hasNombre || hasTitulo || hasComentario);
+};
+
 export const exportToJSON = async () => {
     const opiniones = await getOpiniones();
     const data = opiniones.map(cleanOpinion);
     triggerDownload(JSON.stringify(data, null, 2), 'datos.json', 'application/json');
     return data.length;
 };
-
 
 export const exportToCSV = async () => {
     const opiniones = await getOpiniones();
@@ -41,7 +49,6 @@ export const exportToCSV = async () => {
     triggerDownload(csv, 'datos.csv', 'text/csv;charset=utf-8;');
     return data.length;
 };
-
 
 export const exportToXML = async () => {
     const opiniones = await getOpiniones();
@@ -66,6 +73,95 @@ export const exportToXML = async () => {
     return data.length;
 };
 
+// --- NEW FORMATS ---
+
+export const exportToExcel = async () => {
+    const opiniones = await getOpiniones();
+    const data = opiniones.map(cleanOpinion);
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Opiniones");
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    triggerDownload(new Blob([excelBuffer]), 'datos.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    return data.length;
+};
+
+export const exportToODS = async () => {
+    const opiniones = await getOpiniones();
+    const data = opiniones.map(cleanOpinion);
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Opiniones");
+    const odsBuffer = XLSX.write(workbook, { bookType: 'ods', type: 'array' });
+    triggerDownload(new Blob([odsBuffer]), 'datos.ods', 'application/vnd.oasis.opendocument.spreadsheet');
+    return data.length;
+};
+
+export const exportToYAML = async () => {
+    const opiniones = await getOpiniones();
+    const data = opiniones.map(cleanOpinion);
+    const yamlContent = yaml.dump(data);
+    triggerDownload(yamlContent, 'datos.yaml', 'application/x-yaml');
+    return data.length;
+};
+
+export const exportToSQL = async () => {
+    const opiniones = await getOpiniones();
+    const data = opiniones.map(cleanOpinion);
+    const sql = data.map(op => {
+        const values = [
+            `'${op.nombre.replace(/'/g, "''")}'`,
+            `'${op.titulo.replace(/'/g, "''")}'`,
+            `'${op.comentario.replace(/'/g, "''")}'`,
+            op.estrellas,
+            `'${op.fecha}'`,
+            op.likes
+        ].join(', ');
+        return `INSERT INTO opiniones (nombre, titulo, comentario, estrellas, fecha, likes) VALUES (${values});`;
+    }).join('\n');
+    triggerDownload(sql, 'datos.sql', 'application/sql');
+    return data.length;
+};
+
+export const exportToMarkdown = async () => {
+    const opiniones = await getOpiniones();
+    const data = opiniones.map(cleanOpinion);
+    const headers = ['Nombre', 'Título', 'Comentario', 'Estrellas', 'Fecha', 'Likes'];
+    const separator = headers.map(() => '---').join(' | ');
+    const rows = data.map(op => 
+        `| ${op.nombre} | ${op.titulo} | ${op.comentario.replace(/\n/g, ' ')} | ${op.estrellas} | ${op.fecha} | ${op.likes} |`
+    ).join('\n');
+    const md = `# Opiniones de Wanderlust Travels\n\n| ${headers.join(' | ')} |\n| ${separator} |\n${rows}`;
+    triggerDownload(md, 'datos.md', 'text/markdown');
+    return data.length;
+};
+
+export const exportToJSONL = async () => {
+    const opiniones = await getOpiniones();
+    const data = opiniones.map(cleanOpinion);
+    const jsonl = data.map(op => JSON.stringify(op)).join('\n');
+    triggerDownload(jsonl, 'datos.jsonl', 'application/x-jsonlines');
+    return data.length;
+};
+
+export const exportToText = async () => {
+    const opiniones = await getOpiniones();
+    const data = opiniones.map(cleanOpinion);
+    const txt = data.map(op => `
+=========================================
+USUARIO: ${op.nombre}
+TÍTULO: ${op.titulo}
+OPINIÓN: ${op.comentario}
+CALIFICACIÓN: ${op.estrellas} estrellas
+FECHA: ${op.fecha}
+LIKES: ${op.likes}
+=========================================
+`).join('\n');
+    triggerDownload(txt, 'datos.txt', 'text/plain');
+    return data.length;
+};
+
+// --- IMPORT FUNCTIONS ---
 
 export const importFromJSON = (file) => {
     return new Promise((resolve, reject) => {
@@ -73,7 +169,8 @@ export const importFromJSON = (file) => {
         reader.onload = async (e) => {
             try {
                 const parsed = JSON.parse(e.target.result);
-                const list = Array.isArray(parsed) ? parsed : [parsed];
+                const list = (Array.isArray(parsed) ? parsed : [parsed]).filter(isValidOpinion);
+                if (list.length === 0) throw new Error('No se encontraron opiniones válidas.');
                 const ids = await addOpinionesBatch(list);
                 resolve(ids.length);
             } catch (err) {
@@ -84,7 +181,6 @@ export const importFromJSON = (file) => {
         reader.readAsText(file);
     });
 };
-
 
 export const importFromCSV = (file) => {
     return new Promise((resolve, reject) => {
@@ -98,7 +194,8 @@ export const importFromCSV = (file) => {
                     const obj = {};
                     headers.forEach((h, i) => { obj[h] = values[i] ?? ''; });
                     return obj;
-                });
+                }).filter(isValidOpinion);
+                if (list.length === 0) throw new Error('No se encontraron opiniones válidas en el CSV.');
                 const ids = await addOpinionesBatch(list);
                 resolve(ids.length);
             } catch (err) {
@@ -109,7 +206,6 @@ export const importFromCSV = (file) => {
         reader.readAsText(file);
     });
 };
-
 
 export const importFromXML = (file) => {
     return new Promise((resolve, reject) => {
@@ -128,7 +224,8 @@ export const importFromXML = (file) => {
                     estrellas: Number(getText(item, 'estrellas')) || 5,
                     fecha: getText(item, 'fecha'),
                     likes: Number(getText(item, 'likes')) || 0,
-                }));
+                })).filter(isValidOpinion);
+                if (list.length === 0) throw new Error('No se encontraron opiniones válidas en el XML.');
                 const ids = await addOpinionesBatch(list);
                 resolve(ids.length);
             } catch (err) {
@@ -139,3 +236,150 @@ export const importFromXML = (file) => {
         reader.readAsText(file);
     });
 };
+
+export const importFromExcel = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const list = XLSX.utils.sheet_to_json(worksheet).filter(isValidOpinion);
+                if (list.length === 0) throw new Error('No se encontraron opiniones válidas en el archivo Excel/ODS.');
+                const ids = await addOpinionesBatch(list);
+                resolve(ids.length);
+            } catch (err) {
+                reject(new Error('Formato Excel/ODS inválido: ' + err.message));
+            }
+        };
+        reader.onerror = () => reject(new Error('Error al leer el archivo'));
+        reader.readAsArrayBuffer(file);
+    });
+};
+
+export const importFromYAML = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            try {
+                const list = yaml.load(e.target.result);
+                const dataArray = (Array.isArray(list) ? list : [list]).filter(isValidOpinion);
+                if (dataArray.length === 0) throw new Error('No se encontraron opiniones válidas en YAML.');
+                const ids = await addOpinionesBatch(dataArray);
+                resolve(ids.length);
+            } catch (err) {
+                reject(new Error('Formato YAML inválido: ' + err.message));
+            }
+        };
+        reader.onerror = () => reject(new Error('Error al leer el archivo'));
+        reader.readAsText(file);
+    });
+};
+
+export const importFromJSONL = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            try {
+                const lines = e.target.result.trim().split(/\r?\n/).filter(line => line.trim());
+                const list = lines.map(line => JSON.parse(line)).filter(isValidOpinion);
+                if (list.length === 0) throw new Error('No se encontraron opiniones válidas en JSONL.');
+                const ids = await addOpinionesBatch(list);
+                resolve(ids.length);
+            } catch (err) {
+                reject(new Error('Formato JSONL inválido: ' + err.message));
+            }
+        };
+        reader.onerror = () => reject(new Error('Error al leer el archivo'));
+        reader.readAsText(file);
+    });
+};
+
+export const importFromText = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            try {
+                const sections = e.target.result.split(/={10,}/);
+                const list = [];
+                sections.forEach(sec => {
+                    const lines = sec.trim().split('\n');
+                    if (lines.length < 3) return;
+                    const op = {};
+                    lines.forEach(line => {
+                        if (line.includes('USUARIO:')) op.nombre = line.split('USUARIO:')[1].trim();
+                        if (line.includes('TÍTULO:')) op.titulo = line.split('TÍTULO:')[1].trim();
+                        if (line.includes('OPINIÓN:')) op.comentario = line.split('OPINIÓN:')[1].trim();
+                        if (line.includes('CALIFICACIÓN:')) op.estrellas = parseInt(line.split('CALIFICACIÓN:')[1].trim()) || 5;
+                        if (line.includes('FECHA:')) op.fecha = line.split('FECHA:')[1].trim();
+                        if (line.includes('LIKES:')) op.likes = parseInt(line.split('LIKES:')[1].trim()) || 0;
+                    });
+                    if (op.nombre) list.push(op);
+                });
+                const ids = await addOpinionesBatch(list);
+                resolve(ids.length);
+            } catch (err) {
+                reject(new Error('Formato TXT inválido: ' + err.message));
+            }
+        };
+        reader.onerror = () => reject(new Error('Error al leer el archivo'));
+        reader.readAsText(file);
+    });
+};
+
+export const importFromMD = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            try {
+                const lines = e.target.result.trim().split('\n');
+                const list = [];
+                let headers = [];
+                let isTable = false;
+
+                lines.forEach(line => {
+                    const trimmedLine = line.trim();
+                    if (trimmedLine.startsWith('|')) {
+                        const rowStr = trimmedLine.replace(/^\|/, '').replace(/\|$/, '');
+                        const cells = rowStr.split('|').map(s => s.trim());
+                        if (!isTable) {
+                            if (cells.some(c => c.toLowerCase() === 'nombre' || c.toLowerCase() === 'título' || c.toLowerCase() === 'comentario')) {
+                                headers = cells.map(c => c.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+                                isTable = true;
+                            }
+                        } else {
+                            if (cells[0] && cells[0].includes('---')) return;
+                            
+                            const op = {};
+                            headers.forEach((h, i) => {
+                                op[h] = cells[i] || '';
+                            });
+                            
+                            if (op.nombre) {
+                                list.push({
+                                    nombre: op.nombre,
+                                    titulo: op.titulo || op.title || '',
+                                    comentario: op.comentario || '',
+                                    estrellas: parseInt(op.estrellas) || 5,
+                                    fecha: op.fecha || '',
+                                    likes: parseInt(op.likes) || 0
+                                });
+                            }
+                        }
+                    }
+                });
+
+                if (list.length === 0) throw new Error('No se encontraron datos de opiniones legibles en el Markdown');
+                const ids = await addOpinionesBatch(list);
+                resolve(ids.length);
+            } catch (err) {
+                reject(new Error('Formato MD inválido: ' + err.message));
+            }
+        };
+        reader.onerror = () => reject(new Error('Error al leer el archivo'));
+        reader.readAsText(file);
+    });
+};
+

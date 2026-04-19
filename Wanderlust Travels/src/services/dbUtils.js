@@ -1,5 +1,5 @@
 import { db } from './config';
-import { collection, addDoc, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import forumData from '../assets/forum-data.json';
 import { possibleDestinations } from '../data/possible_destinations';
 

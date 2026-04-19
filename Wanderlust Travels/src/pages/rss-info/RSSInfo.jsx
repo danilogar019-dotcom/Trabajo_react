@@ -168,6 +168,7 @@ const NewsModal = ({ isOpen, onClose, onSubmit, editingItem }) => {
 
     useEffect(() => {
         if (isOpen && editingItem) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setFormData({
                 ...editingItem,
                 pubDate: editingItem.pubDate ? editingItem.pubDate.split('T')[0] : emptyForm.pubDate
@@ -201,7 +202,7 @@ const NewsModal = ({ isOpen, onClose, onSubmit, editingItem }) => {
         // Add ID if it's a new item
         const submissionData = {
             ...formData,
-            id: editingItem?.id || `custom-${Date.now()}`,
+            id: editingItem?.id || `custom-${crypto.randomUUID()}`,
             pubDate: formData.pubDate || new Date().toISOString()
         };
 
@@ -435,8 +436,6 @@ const RSSInfo = () => {
         setEditingItem(null);
         setIsModalOpen(true);
     };
-
-    const allItems = [...customItems, ...feedItems];
 
     return (
         <main className="rss-container">
